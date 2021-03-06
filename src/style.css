@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* "npm run build:css" in terminal if I want to make my own class https://www.youtube.com/watch?v=UBOj6rqRUME */
+
+*:focus {
+
+    outline:none
+
+}
+button:focus {
+    outline:0 !important;
+}
