@@ -1,198 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<style>
-body {
-  margin: 0;
-  min-width: 250px;
-}
-
-/* Include the padding and border in an element's total width and height */
-* {
-  box-sizing: border-box;
-}
-
-/* Remove margins and padding from the list */
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-/* Style the list items */
-ul li {
-  cursor: pointer;
-  position: relative;
-  padding: 12px 8px 12px 40px;
-  list-style-type: none;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
-  
-  /* make the list items unselectable */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
-  background: #f9f9f9;
-}
-
-/* Darker background-color on hover */
-ul li:hover {
-  background: #ddd;
-}
-
-/* When clicked on, add a background color and strike out text */
-ul li.checked {
-  background: #888;
-  color: #fff;
-  text-decoration: line-through;
-}
-
-/* Add a "checked" mark when clicked on */
-ul li.checked::before {
-  content: '';
-  position: absolute;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  top: 10px;
-  left: 16px;
-  transform: rotate(45deg);
-  height: 15px;
-  width: 7px;
-}
-
-/* Style the close button */
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 12px 16px 12px 16px;
-}
-
-.close:hover {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Style the header */
-.header {
-  background-color: #f44336;
-  padding: 30px 40px;
-  color: white;
-  text-align: center;
-}
-
-/* Clear floats after the header */
-.header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the input */
-input {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  width: 75%;
-  padding: 10px;
-  float: left;
-  font-size: 16px;
-}
-
-/* Style the "Add" button */
-.addBtn {
-  padding: 10px;
-  width: 25%;
-  background: #d9d9d9;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
-}
-
-.addBtn:hover {
-  background-color: #bbb;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>JS Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div id="myDIV" class="header">
-  <h2 style="margin:5px">My To Do List</h2>
-  <input type="text" id="myInput" placeholder="Title...">
-  <span onclick="newElement()" class="addBtn">Add</span>
-</div>
-
-<ul id="myUL">
-  <li>Hit the gym</li>
-  <li class="checked">Pay bills</li>
-  <li>Meet George</li>
-  <li>Buy eggs</li>
-  <li>Read a book</li>
-  <li>Organize office</li>
-</ul>
-
+    <!-- header -->
+    <div class="pt-50% text-center h-24 bg-gray-400">
+        <p class="pt-6 text-4xl font-extrabold">Calculator</p>
+    </div>
+    <div class="flex space-x-8 p-8 pb-0 text-center text-3xl text-white font-semibold h-auto">
+        <div class="flex-1 bg-gray-500 py-2">Input</div>
+        <div class="flex-1 bg-gray-500 py-2">Output</div>
+    </div>
+    <div class="flex space-x-8 p-8 pt-0 text-center text-3xl text-white font-semibold h-auto">
+        <div  class="flex-1 bg-gray-500 py-4">
+            <p data-current-operand class="current-operand mx-auto text-black w-3/4 bg-white text-left"></p>
+        </div>
+        <div  class="flex-1 bg-gray-500 py-4">
+            <p data-previous-operand class="previous-operand mx-auto text-black w-3/4 bg-white text-left"></p>
+        </div>
+    </div>
+    <div class="pt-12 flex flex-row m-auto w-1/2 flex-1 px-2 py-2 justify-center flex items-center text-white text-2xl font-semibold">
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-operation>+</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-operation>-</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-operation>/</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-operation>*</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-equals>=</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-all-clear>Clear</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-red-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-delete>Del</button>
+    </div>
+    <div class="pt-12 flex flex-row m-auto w-3/4 flex-1 px-2 py-2 justify-center flex items-center text-white text-2xl font-semibold"> 
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>1</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>2</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>3</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>4</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>5</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>6</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>7</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>8</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>9</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>0</button>
+        <button class="m-auto rounded-full h-20 w-20 flex items-center bg-gray-800 justify-center shadow-lg border-2 border-blue-700 hover:border-2 hover:border-gray-500 hover:text-gray-500 focus:outline-none" data-number>.</button>
+    </div>
+</body>
 <script>
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    myNodelist[i].appendChild(span);
-}
+    class Calculator {
+  constructor(previousOperandTextElement, currentOperandTextElement) {
+    this.previousOperandTextElement = previousOperandTextElement
+    this.currentOperandTextElement = currentOperandTextElement
+    this.clear()
+  }
 
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
+  clear() {
+    this.currentOperand = ''
+    this.previousOperand = ''
+    this.operation = undefined
+  }
+  delete() {
+    this.currentOperand = this.currentOperand.toString().slice(0, -1)
+  }
+  appendNumber(number) {
+    if (number === '.' && this.currentOperand.includes('.')) return
+    this.currentOperand = this.currentOperand.toString() + number.toString()
+  }
+  chooseOperation(operation) {
+    if (this.currentOperand === '') return
+    if (this.previousOperand !== '') {
+      this.compute()
     }
-}
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-    if (ev.target.tagName === 'LI') {
-        ev.target.classList.toggle('checked');
-    }
-}, false);
+    this.operation = operation
+    this.previousOperand = this.currentOperand
+    this.currentOperand = ''
+  }
 
-function newElement() {
-    var li = document.createElement("li");
-    var inputValue = document.getElementById("myInput").value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    if (inputValue === '') {
-        alert("You must write something!");
+  compute() {
+    let computation
+    const prev = parseFloat(this.previousOperand)
+    const current = parseFloat(this.currentOperand)
+    if (isNaN(prev) || isNaN(current)) return
+    switch (this.operation) {
+      case '+':
+        computation = prev + current
+        break
+      case '-':
+        computation = prev - current
+        break
+      case '*':
+        computation = prev * current
+        break
+      case '÷':
+        computation = prev / current
+        break
+      default:
+        return
+    }
+    this.currentOperand = computation
+    this.operation = undefined
+    this.previousOperand = ''
+  }
+
+  getDisplayNumber(number) {
+    const stringNumber = number.toString()
+    const integerDigits = parseFloat(stringNumber.split('.')[0])
+    const decimalDigits = stringNumber.split('.')[1]
+    let integerDisplay
+    if (isNaN(integerDigits)) {
+      integerDisplay = ''
     } else {
-        document.getElementById("myUL").appendChild(li);
+      integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
     }
-    document.getElementById("myInput").value = "";
-
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        li.appendChild(span);
-
-        for ( i = 0; i < close.length; i++ ) {
-            close[i].onclick = function() {
-                var div  = this.parentElement;
-                div.style.display = "none";
-            }
+    if (decimalDigits != null) {
+      return `${integerDisplay}.${decimalDigits}`
+    } else {
+      return integerDisplay
     }
+  }
+
+  updateDisplay() {
+    this.currentOperandTextElement.innerText =
+      this.getDisplayNumber(this.currentOperand)
+    if (this.operation != null) {
+      this.previousOperandTextElement.innerText =
+        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+    } else {
+      this.previousOperandTextElement.innerText = ''
+    }
+  }
 }
+
+const numberButtons = document.querySelectorAll('[data-number]')
+const operationButtons = document.querySelectorAll('[data-operation]')
+const equalsButton = document.querySelector('[data-equals]')
+const deleteButton = document.querySelector('[data-delete]')
+const allClearButton = document.querySelector('[data-all-clear]')
+const previousOperandTextElement = document.querySelector('[data-previous-operand]')
+const currentOperandTextElement = document.querySelector('[data-current-operand]')
+
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+
+numberButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    calculator.appendNumber(button.innerText)
+    calculator.updateDisplay()
+  })
+})
+
+operationButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    calculator.chooseOperation(button.innerText)
+    calculator.updateDisplay()
+  })
+})
+
+equalsButton.addEventListener('click', button => {
+  calculator.compute()
+  calculator.updateDisplay()
+})
+
+allClearButton.addEventListener('click', button => {
+  calculator.clear()
+  calculator.updateDisplay()
+})
+
+deleteButton.addEventListener('click', button => {
+  calculator.delete()
+  calculator.updateDisplay()
+})
 </script>
 </html>
